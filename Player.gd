@@ -5,8 +5,6 @@ export var move_speed := 5.0
 export var turn_speed := 300.0
 export var jump_speed := 4.0
 
-export var allow_jump := false
-
 var is_grounded := false setget , get_is_grounded
 var forward_input := 0.0 setget set_forward_input, get_forward_input
 var turn_input := 0.0 setget set_turn_input, get_turn_input
@@ -54,7 +52,7 @@ func process_actions(state: PhysicsDirectBodyState) -> void:
 	if is_grounded:
 		state.linear_velocity = Vector3.ZERO
 
-		if jump_input and allow_jump:
+		if jump_input:
 			state.linear_velocity += Vector3.UP * jump_speed
 		
 		state.linear_velocity += -global_transform.basis.z * clamp(forward_input, -1.0, 1.0) * move_speed

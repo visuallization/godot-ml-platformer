@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Platform.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Coin.tscn" type="PackedScene" id=3]
+[ext_resource path="res://InputController.tscn" type="PackedScene" id=4]
 
 [node name="Environment" type="Spatial"]
 
@@ -12,8 +13,12 @@
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.159616, 4.33937, 10.4989 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.63129, -2.51408 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.09396, -1.94381 )
 
 [node name="Coin" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2.87138 )
+visible = false
 rotation_speed = 5
+
+[node name="InputController" parent="." instance=ExtResource( 4 )]
+player_path = NodePath("../Player")
