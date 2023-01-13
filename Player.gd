@@ -1,9 +1,9 @@
 extends RigidBody
 
 export var slope_limit := 45.0
-export var move_speed := 5.0
-export var turn_speed := 10.0
-export var jump_speed := 4.0
+export var move_speed := 10.0
+export var turn_speed := 8.0
+export var jump_speed := 8.0
 
 var is_grounded := false setget , get_is_grounded
 var forward_input := 0.0 setget set_forward_input, get_forward_input
@@ -28,9 +28,6 @@ func check_grounded() -> void:
 	var capsule_bottom: Vector3 = global_translation + (capsule_collider.translation - Vector3.UP * (capsule_collider.shape.height))
 	DebugDraw.draw_sphere(capsule_bottom, 1)
 	var radius: float = (scale * Vector3(capsule_collider.shape.radius, 0.0, 0.0)).length()
-	# print("Translation: ", translation)
-	# print("Capsule Bottom: ", capsule_bottom)
-	# print("Radius ", radius)
 	var space_state := get_world().direct_space_state
 	var from: Vector3 = capsule_bottom + global_transform.basis.y * 0.01
 	var to: Vector3 = capsule_bottom - global_transform.basis.y * 5
@@ -86,10 +83,3 @@ func set_jump_input(input: bool) -> void:
 
 func get_jump_input() -> bool:
 	return jump_input
-
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
