@@ -2,7 +2,7 @@ extends RigidBody
 
 export var slope_limit := 45.0
 export var move_speed := 5.0
-export var turn_speed := 300.0
+export var turn_speed := 10.0
 export var jump_speed := 4.0
 
 var is_grounded := false setget , get_is_grounded
@@ -48,7 +48,7 @@ func process_actions(state: PhysicsDirectBodyState) -> void:
 	# Rotation
 	if turn_input != 0.0:
 		var angle: float = clamp(turn_input, -1.0, 1.0) * turn_speed
-		rotate(Vector3.UP, get_physics_process_delta_time() * angle)
+		state.transform.basis = state.transform.basis.rotated(Vector3.UP, get_physics_process_delta_time() * angle)
 
 	# Movement & Jumping
 	if is_grounded:
