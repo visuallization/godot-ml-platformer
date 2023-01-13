@@ -25,19 +25,21 @@ func _integrate_forces(state) -> void:
 func check_grounded() -> void:
 	is_grounded = false
 	var capsule_height: float = max(capsule_collider.shape.radius * 2.0, capsule_collider.shape.height)
-	var capsule_bottom: Vector3 = global_translation + (capsule_collider.translation - Vector3.UP * capsule_height / 2)
+	var capsule_bottom: Vector3 = global_translation + (capsule_collider.translation - Vector3.UP * (capsule_collider.shape.height))
+	DebugDraw.draw_sphere(capsule_bottom, 1)
 	var radius: float = (scale * Vector3(capsule_collider.shape.radius, 0.0, 0.0)).length()
 	# print("Translation: ", translation)
 	# print("Capsule Bottom: ", capsule_bottom)
 	# print("Radius ", radius)
 	var space_state := get_world().direct_space_state
-	var from: Vector3 = capsule_bottom + global_transform.basis.y * 0.1
-	var to: Vector3 = -global_transform.basis.y
+	var from: Vector3 = capsule_bottom + global_transform.basis.y * 0.01
+	var to: Vector3 = capsule_bottom - global_transform.basis.y * 5
 	var hit := space_state.intersect_ray(from, to)
+	DebugDraw.draw_line(from, to, Color(0, 1, 0))
 	if hit:
 		var normal_angle: float = hit.normal.angle_to(global_transform.basis.y)
 		if normal_angle < slope_limit:
-			var max_distance = radius / cos(deg2rad(normal_angle) - radius + 0.2)
+			var max_distance = radius / cos(deg2rad(normal_angle)) - radius + 0.4
 			var hit_distance = from.distance_to(hit.position)
 			if hit_distance < max_distance:
 				is_grounded = true
