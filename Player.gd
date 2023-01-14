@@ -26,7 +26,7 @@ func check_grounded() -> void:
 	is_grounded = false
 	var capsule_height: float = max(capsule_collider.shape.radius * 2.0, capsule_collider.shape.height)
 	var capsule_bottom: Vector3 = global_translation + (capsule_collider.translation - Vector3.UP * (capsule_collider.shape.height))
-	DebugDraw.draw_sphere(capsule_bottom, 1)
+	DebugDraw.draw_sphere(capsule_bottom, 0.5)
 	var radius: float = (scale * Vector3(capsule_collider.shape.radius, 0.0, 0.0)).length()
 	var space_state := get_world().direct_space_state
 	var from: Vector3 = capsule_bottom + global_transform.basis.y * 0.01
