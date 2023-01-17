@@ -3,17 +3,12 @@ extends Node
 export (NodePath) var player_path
 onready var player = get_node(player_path)
 
+var _heuristic := "player"
+var done := false
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func set_heuristic(heuristic):
+	# sets the heuristic from "human" or "model"
+	self._heuristic = heuristic
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func get_done():
+	return done
