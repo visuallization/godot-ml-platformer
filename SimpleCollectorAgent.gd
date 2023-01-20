@@ -3,10 +3,11 @@ extends Node
 export (PackedScene) var platform_scene
 export (PackedScene) var player_scene
 
-var player
-var platform
+onready var player = get_node("../Player")
+onready var platform = get_node("../CoinPlatform")
 
-var start_position = Vector3(0, 3, 0)
+var player_start_position: Vector3
+var platform_start_position: Vector3
 
 var rng
 
@@ -22,7 +23,9 @@ func _ready():
 
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
-	reset()
+
+	player_start_position = player.translation
+	platform_start_position = platform.translation
 	
 func on_pickup_coin():
 	print("pickup")
@@ -33,20 +36,15 @@ func on_pickup_coin():
 func reset():
 	print("reset")
 
-	if player:
-		player.queue_free()
-
+	player.queue_free()
 	player = player_scene.instance()
-	player.translation = start_position
+	player.translation = player_start_position
 	add_child(player)
 
-	if platform:
-		platform.queue_free()
-
+	platform.queue_free()
 	platform = platform_scene.instance()
-	platform.get_node("Collectible").connect("coin_collected", self, "on_pickup_coin")
-	platform.translation = Vector3(rng.randi_range(-10, 10), 1.05, rng.randi_range(-10, 10))
-	
+	platform.translation = Vector3(rng.randi_range(-10, 10), platform_start_position.y, rng.randi_range(-10, 10))
+	platform.connect("coin_collected", self, "on_pickup_coin")
 	add_child(platform)
 
 func set_heuristic(heuristic):
