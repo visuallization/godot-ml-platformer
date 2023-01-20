@@ -66,7 +66,7 @@ func get_move_action() -> int:
 	if _heuristic == "model":
 		return move_action
 
-	return int(Input.get_axis("ui_up", "ui_down"))
+	return int(Input.get_axis("up", "down"))
 	
 func get_turn_action() -> int:
 	if done:
@@ -76,7 +76,7 @@ func get_turn_action() -> int:
 	if _heuristic == "model":
 		return turn_action
 	
-	return int(Input.get_axis("ui_right", "ui_left"))
+	return int(Input.get_axis("right", "left"))
 
 func get_jump_action() -> bool:
 	if done:
@@ -86,7 +86,7 @@ func get_jump_action() -> bool:
 	if _heuristic == "model":
 		return jump_action
 
-	return Input.is_key_pressed(KEY_SPACE)
+	return Input.is_action_pressed("jump")
 
 func get_obs():
 	# The observation of the agent, think of what is the key information that is needed to perform the task, try to have things in coordinates that a relative to the play
