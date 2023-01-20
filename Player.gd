@@ -12,10 +12,6 @@ var jump_input := false setget set_jump_input, get_jump_input
 
 onready var capsule_collider: CollisionShape = $CapsuleCollider
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	print("Hello Player!")
-
 func _physics_process(delta) -> void:
 	check_grounded()
 
