@@ -25,6 +25,15 @@ func _ready():
 
 	player_start_position = player.translation
 	platform_start_position = platform.translation
+
+func _physics_process(delta):
+	var move = get_move_action()
+	var turn = get_turn_action()
+	var jump = get_jump_action()
+
+	player.set_forward_input(move)
+	player.set_turn_input(turn)
+	player.set_jump_input(jump)
 	
 func on_pickup_coin():
 	done = true
@@ -48,6 +57,36 @@ func reset():
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
 	self._heuristic = heuristic
+
+func get_move_action() -> int:
+	if done:
+		move_action = 0
+		return move_action
+
+	if _heuristic == "model":
+		return move_action
+
+	return int(Input.get_axis("ui_up", "ui_down"))
+	
+func get_turn_action() -> int:
+	if done:
+		turn_action = 0
+		return turn_action
+
+	if _heuristic == "model":
+		return turn_action
+	
+	return int(Input.get_axis("ui_right", "ui_left"))
+
+func get_jump_action() -> bool:
+	if done:
+		jump_action = false
+		return jump_action
+	
+	if _heuristic == "model":
+		return jump_action
+
+	return Input.is_key_pressed(KEY_SPACE)
 
 func get_obs():
 	# The observation of the agent, think of what is the key information that is needed to perform the task, try to have things in coordinates that a relative to the play

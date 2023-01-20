@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://InputController.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 1.2
@@ -53,6 +52,3 @@ material/0 = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.5, 1.15 )
 mesh = SubResource( 5 )
 material/0 = SubResource( 6 )
-
-[node name="InputController" parent="." instance=ExtResource( 2 )]
-player_path = NodePath("..")
