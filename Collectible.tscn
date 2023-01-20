@@ -2,11 +2,11 @@
 
 [ext_resource path="res://Collectible.gd" type="Script" id=1]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 1, 0.937255, 0, 1 )
 
 [sub_resource type="CylinderMesh" id=4]
-material = SubResource( 3 )
+material = SubResource( 6 )
 height = 0.5
 
 [sub_resource type="SphereShape" id=5]

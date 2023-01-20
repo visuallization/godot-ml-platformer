@@ -61,7 +61,7 @@ func process_actions(state: PhysicsDirectBodyState) -> void:
 			# make it possible to move the player at half speed when jumping/falling
 			var vertical_velocity: Vector3 = state.linear_velocity.project(Vector3.UP)
 			state.linear_velocity = vertical_velocity + (-global_transform.basis.z) * clamp(forward_input, -1.0, 1.0) * move_speed / 2.0
-
+	
 # Setter & Getter
 func get_is_grounded() -> bool:
 	return is_grounded
