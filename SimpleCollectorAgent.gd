@@ -14,10 +14,11 @@ var rng
 
 var _heuristic := "player"
 var done := false
+var reward = 0.0
 
-var move_action
-var turn_action
-var jump_action
+var move_action: int
+var turn_action: int
+var jump_action: bool
 
 func _ready():
 	rng = RandomNumberGenerator.new()
@@ -36,10 +37,11 @@ func _physics_process(delta):
 	player.set_jump_input(jump)
 	
 func on_pickup_coin():
+	update_reward(1.0)
 	done = true
 	reset()
 
-func reset():
+func reset():	
 	player.queue_free()
 	player = player_scene.instance()
 	player.translation = player_start_position
@@ -57,6 +59,29 @@ func reset():
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
 	self._heuristic = heuristic
+
+func set_action(action):
+	# convert actions from Discrete (0, 1, 2) to expected input values (-1, 0, +1)
+	# of the character controller
+	move_action = action["move"] if action["move"] <= 1 else -1
+	turn_action = action["turn"] if action["turn"] <= 1 else -1
+	jump_action = action["jump"] == 1
+
+func get_action_space():
+	return {
+		"move": {
+			"size": 3, # 0, 1, 2
+			"action_type": "discrete"
+		},
+		"turn": {
+			"size": 3, # 0, 1, 2
+			"action_type": "discrete"
+		},
+		"jump": {
+			"size": 2, # 0, 1
+			"action_type": "discrete"
+		}
+	}
 
 func get_move_action() -> int:
 	if done:
@@ -91,7 +116,20 @@ func get_jump_action() -> bool:
 func get_obs():
 	# The observation of the agent, think of what is the key information that is needed to perform the task, try to have things in coordinates that a relative to the play
 	# return a dictionary with the "obs" as a key, you can have several keys
-	pass
+	var obs = []
+
+	return {
+		"obs": obs
+	}
+
+func get_obs_space():
+	# typs of observation spaces: box, discrete, repeated (for variable length observations)
+	return {
+		"obs": {
+			"size": [len(get_obs()["obs"])],
+			"space": "box"
+		}
+	}
 
 func get_obs_size():
 	return len(get_obs())
@@ -101,6 +139,17 @@ func get_done():
 
 func set_done_false():
 	done = false
+
+func update_reward(value: float):
+	reward += value
+
+func get_reward():
+	var current_reward = reward
+	reward = 0 # reset the reward to zero on every decision step
+	return current_reward
+
+func zero_reward():
+	reward = 0
 
 func reset_if_done():
 	if done:
