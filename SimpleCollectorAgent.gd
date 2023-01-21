@@ -3,8 +3,9 @@ extends Node
 export (PackedScene) var platform_scene
 export (PackedScene) var player_scene
 
-onready var player = get_node("../Player")
-onready var platform = get_node("../CoinPlatform")
+onready var player = $"../Player"
+onready var platform = $"../CoinPlatform"
+onready var raycast_sensor = $"../Player/RayCastSensor3D"
 
 var player_start_position: Vector3
 var platform_start_position: Vector3
@@ -12,8 +13,12 @@ export var platform_spawn_distance: float = 20.0
 
 var rng
 
+const MAX_STEPS = 20000
+
+var n_steps := 0
 var _heuristic := "player"
 var done := false
+var needs_reset := false
 var reward = 0.0
 
 var move_action: int
@@ -21,6 +26,8 @@ var turn_action: int
 var jump_action: bool
 
 func _ready():
+	raycast_sensor.activate()
+
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 
@@ -28,6 +35,15 @@ func _ready():
 	platform_start_position = platform.translation
 
 func _physics_process(delta):
+	n_steps += 1
+	if n_steps >= MAX_STEPS:
+		done = true
+		needs_reset = true
+
+	if needs_reset:
+		reset()
+		return
+
 	var move = get_move_action()
 	var turn = get_turn_action()
 	var jump = get_jump_action()
@@ -41,11 +57,16 @@ func on_pickup_coin():
 	done = true
 	reset()
 
-func reset():	
+func reset():
+	needs_reset = false
+	
 	player.queue_free()
 	player = player_scene.instance()
 	player.translation = player_start_position
 	add_child(player)
+
+	raycast_sensor = player.get_node("RayCastSensor3D")
+	raycast_sensor.activate()
 
 	platform.queue_free()
 	platform = platform_scene.instance()
@@ -58,6 +79,7 @@ func reset():
 
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
+	print(heuristic)
 	self._heuristic = heuristic
 
 func set_action(action):
@@ -117,6 +139,8 @@ func get_obs():
 	# The observation of the agent, think of what is the key information that is needed to perform the task, try to have things in coordinates that a relative to the play
 	# return a dictionary with the "obs" as a key, you can have several keys
 	var obs = []
+	obs.append(player.get_is_grounded())
+	obs.append_array(raycast_sensor.get_observation())
 
 	return {
 		"obs": obs
