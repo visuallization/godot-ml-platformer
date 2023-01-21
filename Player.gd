@@ -22,13 +22,13 @@ func check_grounded() -> void:
 	is_grounded = false
 	var capsule_height: float = max(capsule_collider.shape.radius * 2.0, capsule_collider.shape.height)
 	var capsule_bottom: Vector3 = global_translation + (capsule_collider.translation - Vector3.UP * (capsule_collider.shape.height))
-	DebugDraw.draw_sphere(capsule_bottom, 0.5)
+	# DebugDraw.draw_sphere(capsule_bottom, 0.5)
 	var radius: float = (scale * Vector3(capsule_collider.shape.radius, 0.0, 0.0)).length()
 	var space_state := get_world().direct_space_state
 	var from: Vector3 = capsule_bottom + global_transform.basis.y * 0.01
 	var to: Vector3 = capsule_bottom - global_transform.basis.y * 5
 	var hit := space_state.intersect_ray(from, to)
-	DebugDraw.draw_line(from, to, Color(0, 1, 0))
+	# DebugDraw.draw_line(from, to, Color(0, 1, 0))
 	if hit:
 		var normal_angle: float = hit.normal.angle_to(global_transform.basis.y)
 		if normal_angle < slope_limit:
