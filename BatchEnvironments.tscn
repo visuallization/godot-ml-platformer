@@ -8,49 +8,49 @@
 [node name="Environment" parent="." instance=ExtResource( 2 )]
 
 [node name="Environment2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 121.423 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -113.462 )
 
 [node name="Environment3" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -235.379 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 117.742 )
 
 [node name="Environment4" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -113.956 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 237.857 )
 
 [node name="Environment5" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 120.974, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 142.234, 0, 0 )
 
 [node name="Environment6" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 120.974, 0, 121.423 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 142.234, 0, -113.462 )
 
 [node name="Environment7" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 120.974, 0, -235.379 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 142.234, 0, 117.742 )
 
 [node name="Environment8" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 120.974, 0, -113.956 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 142.234, 0, 237.857 )
 
 [node name="Environment9" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 247.969, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 283.653, 0, 0 )
 
 [node name="Environment10" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 247.969, 0, 121.423 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 283.653, 0, -113.462 )
 
 [node name="Environment11" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 247.969, 0, -235.379 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 283.653, 0, 117.742 )
 
 [node name="Environment12" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 247.969, 0, -113.956 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 283.653, 0, 237.857 )
 
 [node name="Environment13" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 368.943, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 421.652, 0, 0 )
 
 [node name="Environment14" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 368.943, 0, 121.423 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 421.652, 0, -113.462 )
 
 [node name="Environment15" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 368.943, 0, -235.379 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 421.652, 0, 117.742 )
 
 [node name="Environment16" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 368.943, 0, -113.956 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 421.652, 0, 237.857 )
 
 [node name="Sync" type="Node" parent="."]
 script = ExtResource( 1 )

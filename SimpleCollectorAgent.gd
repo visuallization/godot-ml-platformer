@@ -41,6 +41,7 @@ func _physics_process(delta):
 		needs_reset = true
 
 	if needs_reset:
+		needs_reset = false
 		reset()
 		return
 
@@ -54,12 +55,13 @@ func _physics_process(delta):
 	
 func on_pickup_coin():
 	update_reward(1.0)
+	reset()
+
+func on_game_over():
 	done = true
 	reset()
 
 func reset():
-	needs_reset = false
-
 	player.queue_free()
 	player = player_scene.instance()
 	player.translation = player_start_position
