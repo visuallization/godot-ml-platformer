@@ -59,12 +59,12 @@ func on_pickup_coin():
 
 func reset():
 	needs_reset = false
-	
+
 	player.queue_free()
 	player = player_scene.instance()
 	player.translation = player_start_position
-	add_child(player)
-
+	get_parent().add_child(player)
+	
 	raycast_sensor = player.get_node("RayCastSensor3D")
 	raycast_sensor.activate()
 
@@ -75,11 +75,10 @@ func reset():
 	quat.set_euler(Vector3.UP * deg2rad(rng.randi_range(0, 360)))
 	platform.translation = Vector3(0, platform_start_position.y, 0) + quat * Vector3.FORWARD * platform_spawn_distance
 	platform.connect("coin_collected", self, "on_pickup_coin")
-	add_child(platform)
+	get_parent().add_child(platform)
 
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
-	print(heuristic)
 	self._heuristic = heuristic
 
 func set_action(action):
