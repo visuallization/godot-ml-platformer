@@ -41,7 +41,6 @@ func _physics_process(delta):
 		needs_reset = true
 
 	if needs_reset:
-		needs_reset = false
 		reset()
 		return
 
@@ -62,6 +61,9 @@ func on_game_over():
 	reset()
 
 func reset():
+	needs_reset = false
+	n_steps = 0
+
 	player.queue_free()
 	player = player_scene.instance()
 	player.translation = player_start_position
@@ -139,7 +141,25 @@ func get_jump_action() -> bool:
 func get_obs():
 	# The observation of the agent, think of what is the key information that is needed to perform the task, try to have things in coordinates that a relative to the play
 	# return a dictionary with the "obs" as a key, you can have several keys
+	var goal_distance = 0.0
+	var goal_vector = Vector3.ZERO
+
+	goal_distance = player.translation.distance_to(platform.translation)
+	goal_vector = (platform.translation - player.translation).normalized()
+
+	# goal_vector = goal_vector.rotated(Vector3.UP, -deg2rad(rotation_degrees.y))
+	goal_distance = clamp(goal_distance, 0.0, 20.0)
+
 	var obs = []
+	# obs.append_array([
+	# 					player.translation.x,
+	# 					player.translation.y,
+	# 					player.translation.z
+	# 				])
+	obs.append_array([goal_distance / 20.0,
+					  goal_vector.x, 
+					  goal_vector.y, 
+					  goal_vector.z])
 	obs.append(player.get_is_grounded())
 	obs.append_array(raycast_sensor.get_observation())
 
@@ -169,9 +189,10 @@ func update_reward(value: float):
 	reward += value
 
 func get_reward():
-	var current_reward = reward
-	reward = 0 # reset the reward to zero on every decision step
-	return current_reward
+	return reward
+	# var current_reward = reward
+	# reward = 0 # reset the reward to zero on every decision step
+	# return current_reward
 
 func zero_reward():
 	reward = 0
