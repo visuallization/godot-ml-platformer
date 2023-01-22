@@ -12,7 +12,7 @@ extents = Vector3( 50, 2, 50 )
 [node name="Environment" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5752, 2.05596, -8.22099 )
 
 [node name="CoinPlatform" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.05, 10 )

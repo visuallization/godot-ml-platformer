@@ -38,8 +38,7 @@ func set_cone_height(value):
 
 
 func _ready() -> void:
-    pass
-   #_spawn_nodes()
+   _spawn_nodes()
 
 
 func _spawn_nodes():

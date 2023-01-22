@@ -55,11 +55,13 @@ func _physics_process(delta):
 	player.set_jump_input(jump)
 	
 func on_pickup_coin():
+	done = true
 	update_reward(1.0)
 	reset()
 
 func on_game_over():
 	done = true
+	update_reward(-1.0)
 	reset()
 
 func reset():
@@ -155,14 +157,14 @@ func get_obs():
 
 	var obs = []
 	# obs.append_array([
-	# 					player.translation.x,
-	# 					player.translation.y,
-	# 					player.translation.z
+	# 					player.linear_velocity.x / 20.0,
+	# 					player.linear_velocity.y / 20.0,
+	# 					player.linear_velocity.z / 20.0
 	# 				])
-	obs.append_array([goal_distance / 20.0,
-					  goal_vector.x, 
-					  goal_vector.y, 
-					  goal_vector.z])
+	# obs.append_array([goal_distance / 20.0,
+	# 				  goal_vector.x, 
+	# 				  goal_vector.y, 
+	# 				  goal_vector.z])
 	obs.append(player.get_is_grounded())
 	obs.append_array(raycast_sensor.get_observation())
 

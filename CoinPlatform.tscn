@@ -8,6 +8,6 @@
 script = ExtResource( 3 )
 
 [node name="Collectible" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.57241, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.86841, 0 )
 
 [node name="Platform" parent="." instance=ExtResource( 1 )]
