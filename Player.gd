@@ -10,13 +10,24 @@ var forward_input := 0.0 setget set_forward_input, get_forward_input
 var turn_input := 0.0 setget set_turn_input, get_turn_input
 var jump_input := false setget set_jump_input, get_jump_input
 
+var resetted_transform = null
+
 onready var capsule_collider: CollisionShape = $CapsuleCollider
 
 func _physics_process(delta) -> void:
 	check_grounded()
 
-func _integrate_forces(state) -> void:
+func _integrate_forces(state: PhysicsDirectBodyState) -> void:
+	if resetted_transform:
+		state.linear_velocity = Vector3.ZERO
+		state.transform = resetted_transform
+		
+		resetted_transform = null
+		
 	process_actions(state)
+
+func reset(position: Transform) -> void:
+	resetted_transform = position
 
 func check_grounded() -> void:
 	is_grounded = false

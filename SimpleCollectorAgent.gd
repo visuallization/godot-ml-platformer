@@ -7,6 +7,7 @@ onready var player = $"../Player"
 onready var platform = $"../CoinPlatform"
 onready var raycast_sensor = $"../Player/RayCastSensor3D"
 
+var player_start_transform: Transform
 var player_start_position: Vector3
 var platform_start_position: Vector3
 export var platform_spawn_distance: float = 20.0
@@ -26,12 +27,13 @@ var turn_action: int
 var jump_action: bool
 
 func _ready():
-	raycast_sensor.activate()
-
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 
+	player_start_transform = player.global_transform
 	player_start_position = player.translation
+	raycast_sensor.activate()
+
 	platform_start_position = platform.translation
 
 func _physics_process(delta):
@@ -64,22 +66,23 @@ func reset():
 	needs_reset = false
 	n_steps = 0
 
-	player.queue_free()
-	player = player_scene.instance()
-	player.translation = player_start_position
-	get_parent().add_child(player)
+	# player.queue_free()
+	# player = player_scene.instance()
+	# player.translation = player_start_position
+	# get_parent().add_child(player)
 	
-	raycast_sensor = player.get_node("RayCastSensor3D")
-	raycast_sensor.activate()
-
-	platform.queue_free()
-	platform = platform_scene.instance()
+	# raycast_sensor = player.get_node("RayCastSensor3D")
+	# raycast_sensor.activate()
+	player.reset(player_start_transform)
+	# player.transform = player_start_transform
+	
+	# platform.queue_free()
+	# platform = platform_scene.instance()
 	var quat = Quat()
-	
 	quat.set_euler(Vector3.UP * deg2rad(rng.randi_range(0, 360)))
 	platform.translation = Vector3(0, platform_start_position.y, 0) + quat * Vector3.FORWARD * platform_spawn_distance
-	platform.connect("coin_collected", self, "on_pickup_coin")
-	get_parent().add_child(platform)
+	# platform.connect("coin_collected", self, "on_pickup_coin")
+	# get_parent().add_child(platform)
 
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
