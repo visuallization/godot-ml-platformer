@@ -55,8 +55,8 @@ func _physics_process(delta):
 	player.set_jump_input(jump)
 	
 func on_pickup_coin():
-	done = true
-	update_reward(10.0)
+	# done = true
+	update_reward(1.0)
 	reset()
 
 func on_game_over():
