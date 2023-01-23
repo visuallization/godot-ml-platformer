@@ -56,7 +56,7 @@ func _physics_process(delta):
 	
 func on_pickup_coin():
 	done = true
-	update_reward(1.0)
+	update_reward(10.0)
 	reset()
 
 func on_game_over():
