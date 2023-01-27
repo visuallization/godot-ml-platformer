@@ -1,6 +1,7 @@
 extends Node
 # --fixed-fps 2000 --disable-render-loop
 export var action_repeat := 8
+export(float) var speed_up = 1.0
 var n_action_steps = 0
 
 const MAJOR_VERSION := "0"
@@ -14,7 +15,7 @@ var message_center
 var should_connect = true
 var agents
 var need_to_send_obs = false
-var args = null
+var args = {}
 onready var start_time = OS.get_ticks_msec()
 var initialized = false
 var just_reset = false
@@ -34,7 +35,7 @@ func _set_heuristic(heuristic):
 
 func _handshake():
 	print("performing handshake")
-	
+		
 	var json_dict = _get_dict_json_message()
 	assert(json_dict["type"] == "handshake")
 	var major_version = json_dict["major_version"]
@@ -49,6 +50,7 @@ func _handshake():
 func _get_dict_json_message():
 	# returns a dictionary from of the most recent message
 	# this is not waiting
+	#TODO: Handled through another flag in Godot 4.0, need to check if this is available in 3.5
 	while client.get_available_bytes() == 0:
 		if client.get_status() == 3:
 			print("server disconnected status 3, closing")
@@ -63,7 +65,7 @@ func _get_dict_json_message():
 		
 	var message = client.get_string()
 	var json_data = JSON.parse(message).result
-	
+		
 	return json_data
 
 func _send_dict_as_json_message(dict):
@@ -72,7 +74,7 @@ func _send_dict_as_json_message(dict):
 func _send_env_info():
 	var json_dict = _get_dict_json_message()
 	assert(json_dict["type"] == "env_info")
-	
+		
 	var message = {
 		"type" : "env_info",
 		#"obs_size": agents[0].get_obs_size(),
@@ -88,12 +90,12 @@ func connect_to_server():
 	OS.delay_msec(1000)
 	print("trying to connect to server")
 	client = StreamPeerTCP.new()
-	
+		
 	#set_process(true)"localhost" was not working on windows VM, had to use the IP
 	var ip = "127.0.0.1"
 	var port = _get_port()
 	var connect = client.connect_to_host(ip, port)
-	
+		
 	print(connect, client.get_status())
 	client.set_no_delay(true) # TODO check if this improves performance or not
 	return client.get_status() == 2
@@ -106,10 +108,18 @@ func _get_args():
 		if argument.find("=") > -1:
 			var key_value = argument.split("=")
 			arguments[key_value[0].lstrip("--")] = key_value[1]
-			
+		else:
+			# Options without an argument will be present in the dictionary,
+			# with the value set to an empty string.
+			arguments[argument.lstrip("--")] = ""
+
 	return arguments   
 
-func _get_port():    
+func _get_speedup():
+	print(args)
+	return int(args.get("speedup", speed_up))
+
+func _get_port():	
 	return int(args.get("port", DEFAULT_PORT))
 
 func _set_seed():
@@ -118,13 +128,16 @@ func _set_seed():
 
 func _set_action_repeat():
 	action_repeat = int(args.get("action_repeat", DEFAULT_ACTION_REPEAT))
-	
+		
 
 func disconnect_from_server():
 	client.disconnect_from_host()
 
 func _initialize():
 	_get_agents()
+	Engine.iterations_per_second = _get_speedup() * 60 # Replace with function body.
+	Engine.time_scale = _get_speedup() * 1.0
+	prints("physics ticks", Engine.iterations_per_second, Engine.time_scale, _get_speedup(), speed_up)
 	
 	args = _get_args()
 	connected = connect_to_server()
@@ -147,7 +160,7 @@ func _physics_process(delta):
 		return
 		 
 	n_action_steps += 1
-	
+		
 	if connected:
 		get_tree().set_pause(true) 
 		
@@ -199,14 +212,14 @@ func handle_message() -> bool:
 		just_reset = true
 		get_tree().set_pause(false) 
 		#print("resetting forcing draw")
-#        VisualServer.force_draw()
-#        var obs = _get_obs_from_agents()
-#        print("obs ", obs)
-#        var reply = {
-#            "type": "reset",
-#            "obs": obs
-#        }
-#        _send_dict_as_json_message(reply)   
+#		VisualServer.force_draw()
+#		var obs = _get_obs_from_agents()
+#		print("obs ", obs)
+#		var reply = {
+#			"type": "reset",
+#			"obs": obs
+#		}
+#		_send_dict_as_json_message(reply)   
 		return true
 		
 	if message["type"] == "call":
@@ -219,7 +232,7 @@ func handle_message() -> bool:
 		print("calling method from Python")
 		_send_dict_as_json_message(reply)   
 		return handle_message()
-	
+		
 	if message["type"] == "action":
 		var action = message["action"]
 		_set_agent_actions(action) 
@@ -240,7 +253,7 @@ func _call_method_on_agents(method):
 
 func _reset_agents_if_done():
 	for agent in agents:
-		if agent.get_done():
+		if agent.get_done(): 
 			agent.set_done_false()
 
 func _reset_all_agents():
@@ -253,23 +266,23 @@ func _get_obs_from_agents():
 	for agent in agents:
 		obs.append(agent.get_obs())
 	return obs
-	
+		
 func _get_reward_from_agents():
 	var rewards = [] 
 	for agent in agents:
 		rewards.append(agent.get_reward())
 		agent.zero_reward()
-	return rewards    
-	
+	return rewards	
+		
 func _get_done_from_agents():
 	var dones = [] 
 	for agent in agents:
 		var done = agent.get_done()
 		if done: agent.set_done_false()
 		dones.append(done)
-	return dones    
-	
+	return dones	
+		
 func _set_agent_actions(actions):
 	for i in range(len(actions)):
 		agents[i].set_action(actions[i])
-	
+		

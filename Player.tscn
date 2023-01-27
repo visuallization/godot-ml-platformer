@@ -61,6 +61,7 @@ n_rays_width = 10.0
 n_rays_height = 2.0
 ray_length = 50.0
 cone_width = 100.0
+collide_with_areas = true
 
 [node name="node_0 0" type="RayCast" parent="RayCastSensor3D"]
 enabled = true
@@ -122,22 +123,22 @@ enabled = true
 cast_to = Vector3( 4.2093, 12.941, 48.1125 )
 collide_with_areas = true
 
-[node name="node_6 2" type="RayCast" parent="RayCastSensor3D"]
+[node name="node_6 0" type="RayCast" parent="RayCastSensor3D"]
 enabled = true
 cast_to = Vector3( 12.5, -12.941, 46.6506 )
 collide_with_areas = true
 
-[node name="node_6 3" type="RayCast" parent="RayCastSensor3D"]
+[node name="node_6 1" type="RayCast" parent="RayCastSensor3D"]
 enabled = true
 cast_to = Vector3( 12.5, 12.941, 46.6506 )
 collide_with_areas = true
 
-[node name="node_7 2" type="RayCast" parent="RayCastSensor3D"]
+[node name="node_7 0" type="RayCast" parent="RayCastSensor3D"]
 enabled = true
 cast_to = Vector3( 20.4109, -12.941, 43.7713 )
 collide_with_areas = true
 
-[node name="node_7 3" type="RayCast" parent="RayCastSensor3D"]
+[node name="node_7 1" type="RayCast" parent="RayCastSensor3D"]
 enabled = true
 cast_to = Vector3( 20.4109, 12.941, 43.7713 )
 collide_with_areas = true
