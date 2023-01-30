@@ -1,9 +1,9 @@
 extends Area
 
-signal game_over()
+signal on_enter()
 
 func _ready():
 	connect("body_entered", self, "on_body_entered")
 
 func on_body_entered(body: Node):
-	emit_signal("game_over")
+	emit_signal("on_enter")

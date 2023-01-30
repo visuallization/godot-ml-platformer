@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ml-platformer"
-run/main_scene="res://BatchEnvironments.tscn"
+run/main_scene="res://environments/simple_collector/BatchEnvironments.tscn"
 config/icon="res://icon.png"
 
 [autoload]
