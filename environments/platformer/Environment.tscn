@@ -1,16 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://common/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://common/ResetArea.tscn" type="PackedScene" id=2]
 [ext_resource path="res://environments/platformer/PlatformerAgent.tscn" type="PackedScene" id=3]
 [ext_resource path="res://common/Platform.tscn" type="PackedScene" id=4]
-[ext_resource path="res://common/MoveableCamera.tscn" type="PackedScene" id=5]
 [ext_resource path="res://common/CoinPlatform.tscn" type="PackedScene" id=8]
 
 [node name="Environment" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.870996, 3.2802, -0.947804 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0 )
 jump_speed = 10.0
 
 [node name="Platform" parent="." instance=ExtResource( 4 )]
@@ -24,8 +23,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 30 )
 platform_scene = ExtResource( 4 )
 coin_platform_scene = ExtResource( 8 )
 platform_spawn_distance = 16.0
-
-[node name="MoveableCamera" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.69466, 20.1605 )
 
 [connection signal="on_enter" from="ResetArea" to="PlatformerAgent" method="on_game_over"]

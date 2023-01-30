@@ -36,8 +36,7 @@ func _ready():
 
 	platform_start_position = start_platform.translation
 
-	yield(get_tree().create_timer(0.1), "timeout")
-	spawn_platform()
+	spawn_platform(null, true)
 
 func _physics_process(delta):
 	n_steps += 1
@@ -69,7 +68,7 @@ func on_game_over():
 	update_reward(-1.0)
 	reset()
 
-func spawn_platform(spawn_origin = null):
+func spawn_platform(spawn_origin = null, defer = false):
 	var coin_platform
 	if coin_platforms.size() > 1:
 		coin_platform = coin_platforms.pop_front()
@@ -81,7 +80,13 @@ func spawn_platform(spawn_origin = null):
 	var origin = spawn_origin if spawn_origin != null else Vector3(player.translation.x, platform_start_position.y, player.translation.z)
 	coin_platform.translation = origin + quat * Vector3.FORWARD * platform_spawn_distance
 	coin_platform.connect("coin_collected", self, "on_pickup_coin")
-	get_parent().add_child(coin_platform)
+
+	# add this deferred call, as this is needed in the _ready function
+	# because the parent node is still busy setting up children
+	if defer:
+		get_parent().call_deferred("add_child", coin_platform)
+	else:
+		get_parent().add_child(coin_platform)
 
 	coin_platforms.append(coin_platform)
 
@@ -103,7 +108,7 @@ func reset():
 
 	player.reset(player_start_transform)
 
-	spawn_platform(Vector3(0, platform_start_position.y, 0))
+	spawn_platform(Vector3(player_start_transform.origin.x, platform_start_position.y, player_start_transform.origin.z))
 
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
