@@ -13,7 +13,7 @@ var player_start_transform: Transform
 var platform_start_position: Vector3
 export var platform_spawn_distance: float = 20.0
 
-var rng
+var rng: RandomNumberGenerator
 
 const MAX_STEPS = 10000
 
@@ -83,6 +83,7 @@ func spawn_platform(spawn_origin = null, defer = false):
 
 	# add this deferred call, as this is needed in the _ready function
 	# because the parent node is still busy setting up children
+	# see here for more information: https://godotengine.org/qa/146487/packedscene-instance-not-working-in-_ready-function
 	if defer:
 		get_parent().call_deferred("add_child", coin_platform)
 	else:
@@ -108,7 +109,7 @@ func reset():
 
 	player.reset(player_start_transform)
 
-	spawn_platform(Vector3(player_start_transform.origin.x, platform_start_position.y, player_start_transform.origin.z))
+	spawn_platform(Vector3(0, platform_start_position.y, 0))
 
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
