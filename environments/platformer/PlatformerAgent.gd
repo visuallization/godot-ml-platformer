@@ -1,14 +1,15 @@
 extends Node
 
 export (PackedScene) var platform_scene
-export (PackedScene) var player_scene
+export (PackedScene) var coin_platform_scene
 
 onready var player = $"../Player"
-onready var platform = $"../CoinPlatform"
+onready var start_platform = $"../Platform"
 onready var raycast_sensor = $"../Player/RayCastSensor3D"
 
+var coin_platforms := []
+
 var player_start_transform: Transform
-var player_start_position: Vector3
 var platform_start_position: Vector3
 export var platform_spawn_distance: float = 20.0
 
@@ -31,10 +32,12 @@ func _ready():
 	rng.randomize()
 
 	player_start_transform = player.global_transform
-	player_start_position = player.translation
 	raycast_sensor.activate()
 
-	platform_start_position = platform.translation
+	platform_start_position = start_platform.translation
+
+	yield(get_tree().create_timer(0.1), "timeout")
+	spawn_platform()
 
 func _physics_process(delta):
 	n_steps += 1
@@ -55,25 +58,52 @@ func _physics_process(delta):
 	player.set_jump_input(jump)
 	
 func on_pickup_coin():
-	# done = true
+	if is_instance_valid(start_platform):
+		start_platform.queue_free()
+
 	update_reward(1.0)
-	reset_player_and_platform()
+	spawn_platform()
 
 func on_game_over():
 	done = true
 	update_reward(-1.0)
 	reset()
 
-func reset_player_and_platform():
-	player.reset(player_start_transform)
+func spawn_platform(spawn_origin = null):
+	var coin_platform
+	if coin_platforms.size() > 1:
+		coin_platform = coin_platforms.pop_front()
+		coin_platform.queue_free()
+
+	coin_platform = coin_platform_scene.instance()
 	var quat = Quat()
 	quat.set_euler(Vector3.UP * deg2rad(rng.randi_range(0, 360)))
-	platform.translation = Vector3(0, platform_start_position.y, 0) + quat * Vector3.FORWARD * platform_spawn_distance
+	var origin = spawn_origin if spawn_origin != null else Vector3(player.translation.x, platform_start_position.y, player.translation.z)
+	coin_platform.translation = origin + quat * Vector3.FORWARD * platform_spawn_distance
+	coin_platform.connect("coin_collected", self, "on_pickup_coin")
+	get_parent().add_child(coin_platform)
+
+	coin_platforms.append(coin_platform)
 
 func reset():
 	needs_reset = false
 	n_steps = 0
-	reset_player_and_platform()
+
+	if is_instance_valid(start_platform):
+		start_platform.queue_free()
+
+	for platform in coin_platforms:
+		platform.queue_free()
+
+	coin_platforms.clear()
+
+	start_platform = platform_scene.instance()
+	start_platform.translation = platform_start_position
+	get_parent().add_child(start_platform)
+
+	player.reset(player_start_transform)
+
+	spawn_platform(Vector3(0, platform_start_position.y, 0))
 
 func set_heuristic(heuristic):
 	# sets the heuristic from "human" or "model"
@@ -135,25 +165,8 @@ func get_jump_action() -> bool:
 func get_obs():
 	# The observation of the agent, think of what is the key information that is needed to perform the task, try to have things in coordinates that a relative to the play
 	# return a dictionary with the "obs" as a key, you can have several keys
-	var goal_distance = 0.0
-	var goal_vector = Vector3.ZERO
-
-	goal_distance = player.translation.distance_to(platform.translation)
-	goal_vector = (platform.translation - player.translation).normalized()
-
-	# goal_vector = goal_vector.rotated(Vector3.UP, -deg2rad(rotation_degrees.y))
-	goal_distance = clamp(goal_distance, 0.0, 20.0)
 
 	var obs = []
-	# obs.append_array([
-	# 					player.linear_velocity.x / 20.0,
-	# 					player.linear_velocity.y / 20.0,
-	# 					player.linear_velocity.z / 20.0
-	# 				])
-	# obs.append_array([goal_distance / 20.0,
-	# 				  goal_vector.x, 
-	# 				  goal_vector.y, 
-	# 				  goal_vector.z])
 	obs.append(player.get_is_grounded())
 	obs.append_array(raycast_sensor.get_observation())
 

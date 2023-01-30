@@ -19,10 +19,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.05, 10 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 30 )
 
+[node name="ResetArea" parent="." instance=ExtResource( 2 )]
+
 [node name="SimpleCollectorAgent" parent="." instance=ExtResource( 7 )]
 platform_scene = ExtResource( 8 )
-
-[node name="ResetArea" parent="." instance=ExtResource( 2 )]
 
 [connection signal="coin_collected" from="CoinPlatform" to="SimpleCollectorAgent" method="on_pickup_coin"]
 [connection signal="on_enter" from="ResetArea" to="SimpleCollectorAgent" method="on_game_over"]
