@@ -10,7 +10,7 @@
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0 )
-jump_speed = 10.0
+jump_speed = 12.0
 
 [node name="Platform" parent="." instance=ExtResource( 4 )]
 
@@ -22,6 +22,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 30 )
 [node name="PlatformerAgent" parent="." instance=ExtResource( 3 )]
 platform_scene = ExtResource( 4 )
 coin_platform_scene = ExtResource( 8 )
-platform_spawn_distance = 16.0
+platform_spawn_distance = 15.0
 
 [connection signal="on_enter" from="ResetArea" to="PlatformerAgent" method="on_game_over"]

@@ -6,8 +6,12 @@ export (PackedScene) var coin_platform_scene
 onready var player = $"../Player"
 onready var start_platform = $"../Platform"
 onready var raycast_sensor = $"../Player/RayCastSensor3D"
+onready var reset_area = $"../ResetArea"
 
 var coin_platforms := []
+
+var boundaries: Vector3
+var boundary_offset := 10
 
 var player_start_transform: Transform
 var platform_start_position: Vector3
@@ -31,11 +35,15 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 
+	boundaries = reset_area.get_size()
+	boundaries.x -= boundary_offset
+	boundaries.z -= boundary_offset
+
 	player_start_transform = player.global_transform
 	raycast_sensor.activate()
 
 	platform_start_position = start_platform.translation
-
+	
 	spawn_platform(null, true)
 
 func _physics_process(delta):
@@ -75,10 +83,18 @@ func spawn_platform(spawn_origin = null, defer = false):
 		coin_platform.queue_free()
 
 	coin_platform = coin_platform_scene.instance()
+	var origin = spawn_origin if spawn_origin != null else Vector3(player.translation.x, platform_start_position.y, player.translation.z)
 	var quat = Quat()
 	quat.set_euler(Vector3.UP * deg2rad(rng.randi_range(0, 360)))
-	var origin = spawn_origin if spawn_origin != null else Vector3(player.translation.x, platform_start_position.y, player.translation.z)
-	coin_platform.translation = origin + quat * Vector3.FORWARD * platform_spawn_distance
+	var spawn_position: Vector3 = origin + quat * Vector3.FORWARD * platform_spawn_distance
+
+	# if the platform would be spawned outside of the envrionment boundaries
+	# calculate a new position
+	while abs(spawn_position.x) > boundaries.x or abs(spawn_position.z) > boundaries.z:
+		quat.set_euler(Vector3.UP * deg2rad(rng.randi_range(0, 360)))
+		spawn_position = origin + quat * Vector3.FORWARD * platform_spawn_distance
+	
+	coin_platform.translation = spawn_position
 	coin_platform.connect("coin_collected", self, "on_pickup_coin")
 
 	# add this deferred call, as this is needed in the _ready function

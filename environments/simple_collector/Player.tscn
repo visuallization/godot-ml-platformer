@@ -3,7 +3,6 @@
 [ext_resource path="res://common/Player.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" type="Script" id=2]
 
-
 [sub_resource type="CapsuleMesh" id=1]
 radius = 1.2
 mid_height = 1.8
@@ -160,6 +159,106 @@ cast_to = Vector3( 34.1506, -12.941, 34.1506 )
 collide_with_areas = true
 
 [node name="node_9 1" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 34.1506, 12.941, 34.1506 )
+collide_with_areas = true
+
+[node name="node_0 4" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -34.1506, -12.941, 34.1506 )
+collide_with_areas = true
+
+[node name="node_0 5" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -34.1506, 12.941, 34.1506 )
+collide_with_areas = true
+
+[node name="node_1 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -27.7016, -12.941, 39.562 )
+collide_with_areas = true
+
+[node name="node_1 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -27.7016, 12.941, 39.562 )
+collide_with_areas = true
+
+[node name="node_2 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -20.4109, -12.941, 43.7713 )
+collide_with_areas = true
+
+[node name="node_2 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -20.4109, 12.941, 43.7713 )
+collide_with_areas = true
+
+[node name="node_3 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -12.5, -12.941, 46.6506 )
+collide_with_areas = true
+
+[node name="node_3 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -12.5, 12.941, 46.6506 )
+collide_with_areas = true
+
+[node name="node_4 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -4.2093, -12.941, 48.1125 )
+collide_with_areas = true
+
+[node name="node_4 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( -4.2093, 12.941, 48.1125 )
+collide_with_areas = true
+
+[node name="node_5 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 4.2093, -12.941, 48.1125 )
+collide_with_areas = true
+
+[node name="node_5 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 4.2093, 12.941, 48.1125 )
+collide_with_areas = true
+
+[node name="node_6 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 12.5, -12.941, 46.6506 )
+collide_with_areas = true
+
+[node name="node_6 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 12.5, 12.941, 46.6506 )
+collide_with_areas = true
+
+[node name="node_7 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 20.4109, -12.941, 43.7713 )
+collide_with_areas = true
+
+[node name="node_7 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 20.4109, 12.941, 43.7713 )
+collide_with_areas = true
+
+[node name="node_8 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 27.7016, -12.941, 39.562 )
+collide_with_areas = true
+
+[node name="node_8 3" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 27.7016, 12.941, 39.562 )
+collide_with_areas = true
+
+[node name="node_9 2" type="RayCast" parent="RayCastSensor3D"]
+enabled = true
+cast_to = Vector3( 34.1506, -12.941, 34.1506 )
+collide_with_areas = true
+
+[node name="node_9 3" type="RayCast" parent="RayCastSensor3D"]
 enabled = true
 cast_to = Vector3( 34.1506, 12.941, 34.1506 )
 collide_with_areas = true
