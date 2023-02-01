@@ -9,7 +9,7 @@
 [node name="Environment" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.557, 1.94688, -4.76811 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.947, 0 )
 
 [node name="CoinPlatform" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.05, 10 )

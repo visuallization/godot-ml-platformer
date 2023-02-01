@@ -47,6 +47,7 @@ func _ready():
 	spawn_platform(null, true)
 
 func _physics_process(delta):
+	#print(raycast_sensor.get_observation())
 	n_steps += 1
 	if n_steps >= MAX_STEPS:
 		done = true
@@ -73,7 +74,6 @@ func on_pickup_coin():
 
 func on_game_over():
 	done = true
-	update_reward(-1.0)
 	reset()
 
 func spawn_platform(spawn_origin = null, defer = false):
@@ -189,7 +189,7 @@ func get_obs():
 	# return a dictionary with the "obs" as a key, you can have several keys
 
 	var obs = []
-	obs.append(player.get_is_grounded())
+	# obs.append(player.get_is_grounded())
 	obs.append_array(raycast_sensor.get_observation())
 
 	return {
