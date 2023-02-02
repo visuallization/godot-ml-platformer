@@ -3,7 +3,7 @@ algorithm: PPO
 
 stop:
     episode_reward_mean: 100
-    training_iteration: 500
+    training_iteration: 1000
     timesteps_total: 200000000
 
 config:
