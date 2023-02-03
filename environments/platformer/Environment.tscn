@@ -23,7 +23,8 @@ jump_speed = 10.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 30 )
 
 [node name="ResetArea" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
+collision_layer = 2
 
 [node name="PlatformerAgent" parent="." instance=ExtResource( 3 )]
 platform_scene = ExtResource( 4 )
