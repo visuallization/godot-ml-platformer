@@ -14,7 +14,7 @@ friction = 0.0
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0 )
 physics_material_override = SubResource( 1 )
-move_speed = 12.0
+move_speed = 15.0
 jump_speed = 10.0
 
 [node name="Platform" parent="." instance=ExtResource( 4 )]
