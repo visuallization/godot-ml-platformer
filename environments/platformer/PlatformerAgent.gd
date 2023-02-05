@@ -225,8 +225,3 @@ func get_reward():
 
 func zero_reward():
 	reward = 0
-
-func reset_if_done():
-	if done:
-		print("done!")
-		reset()
