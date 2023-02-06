@@ -19,7 +19,7 @@ export var platform_spawn_distance: float = 20.0
 
 var rng: RandomNumberGenerator
 
-const MAX_STEPS = 10000
+const MAX_STEPS = 20000
 
 var n_steps := 0
 var _heuristic := "player"
