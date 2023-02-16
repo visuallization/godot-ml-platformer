@@ -13,25 +13,28 @@ config:
         action_repeat: null
         show_window: false
         seed: 0
-    framework: torch  
-    lambda: 0.95
-    gamma: 0.99
 
-    vf_clip_param: 100.0
-    clip_param: 0.2
-    entropy_coeff: 0.005
-    entropy_coeff_schedule: null
+    framework: torch
+    
     train_batch_size: 2048
     sgd_minibatch_size: 128
-    num_sgd_iter: 3
-    num_workers: 8
     lr: 0.0003
-    num_envs_per_worker: 16
-    batch_mode: truncate_episodes
-    rollout_fragment_length: 128
-    num_gpus: 1
+    entropy_coeff: 0.005
+    entropy_coeff_schedule: null
+    vf_clip_param: 100.0
+    clip_param: 0.2
+    lambda: 0.95
+    num_sgd_iter: 3
+
     model:
         fcnet_hiddens: [256, 256] 
         framestack: 4
+    gamma: 0.99
+
+    num_workers: 8
+    num_envs_per_worker: 16
+    batch_mode: truncate_episodes
+    rollout_fragment_length: auto #128
+    num_gpus: 1
     no_done_at_end: true
     soft_horizon: true
