@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://SimpleCollectorAgent.gd" type="Script" id=1]
+[ext_resource path="res://environments/simple_collector/SimpleCollectorAgent.gd" type="Script" id=1]
 
 [node name="SimpleCollectorAgent" type="Node" groups=["AGENT"]]
 script = ExtResource( 1 )

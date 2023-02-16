@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/godot_rl_agents/sync.gd" type="Script" id=1]
+[ext_resource path="res://environments/platformer/Environment.tscn" type="PackedScene" id=2]
+[ext_resource path="res://common/MoveableCamera.tscn" type="PackedScene" id=3]
+
+[node name="BatchEnvironments" type="Spatial"]
+
+[node name="Environment" parent="." instance=ExtResource( 2 )]
+
+[node name="Environment2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 119.464 )
+
+[node name="Environment3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -129.002 )
+
+[node name="Environment4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -266.393 )
+
+[node name="Environment5" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 128.855, 0, 0 )
+
+[node name="Environment6" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 128.855, 0, 119.464 )
+
+[node name="Environment7" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 128.855, 0, -129.002 )
+
+[node name="Environment8" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 128.855, 0, -266.393 )
+
+[node name="Environment9" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.96, 0, 0 )
+
+[node name="Environment10" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.96, 0, 119.464 )
+
+[node name="Environment11" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.96, 0, -129.002 )
+
+[node name="Environment12" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.96, 0, -266.393 )
+
+[node name="Environment13" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 411.814, 0, 0 )
+
+[node name="Environment14" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 411.814, 0, 119.464 )
+
+[node name="Environment15" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 411.814, 0, -129.002 )
+
+[node name="Environment16" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 411.814, 0, -266.393 )
+
+[node name="MoveableCamera" parent="." instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -76.5558, 30.2382, 10.0985 )
+
+[node name="Sync" type="Node" parent="."]
+script = ExtResource( 1 )
+speed_up = 8.0

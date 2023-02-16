@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://environments/simple_collector/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://common/ResetArea.tscn" type="PackedScene" id=2]
+[ext_resource path="res://common/Floor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://environments/simple_collector/SimpleCollectorAgent.tscn" type="PackedScene" id=7]
+[ext_resource path="res://common/CoinPlatform.tscn" type="PackedScene" id=8]
+
+[node name="Environment" type="Spatial"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.947, 0 )
+
+[node name="CoinPlatform" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.05, 10 )
+
+[node name="Floor" parent="." instance=ExtResource( 5 )]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 30 )
+
+[node name="ResetArea" parent="." instance=ExtResource( 2 )]
+
+[node name="SimpleCollectorAgent" parent="." instance=ExtResource( 7 )]
+platform_scene = ExtResource( 8 )
+
+[connection signal="coin_collected" from="CoinPlatform" to="SimpleCollectorAgent" method="on_pickup_coin"]
+[connection signal="on_enter" from="ResetArea" to="SimpleCollectorAgent" method="on_game_over"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://debug_draw_examples/addon_icon.gd" type="Script" id=1]
+[ext_resource path="res://examples/debug_draw_examples/addon_icon.gd" type="Script" id=1]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1

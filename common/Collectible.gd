@@ -13,4 +13,4 @@ func _process(delta):
 
 func _on_body_entered(body:Node):
 	emit_signal("collectible_collected")
-	# queue_free()
+	queue_free()

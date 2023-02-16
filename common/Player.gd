@@ -4,6 +4,7 @@ export var slope_limit := 45.0
 export var move_speed := 10.0
 export var turn_speed := 8.0
 export var jump_speed := 8.0
+export var jump_drag := 2.0
 
 var is_grounded := false setget , get_is_grounded
 var forward_input := 0.0 setget set_forward_input, get_forward_input
@@ -67,7 +68,7 @@ func process_actions(state: PhysicsDirectBodyState) -> void:
 		if not is_zero_approx(forward_input):
 			# make it possible to move the player at half speed when jumping/falling
 			var vertical_velocity: Vector3 = state.linear_velocity.project(Vector3.UP)
-			state.linear_velocity = vertical_velocity + (-global_transform.basis.z) * clamp(forward_input, -1.0, 1.0) * move_speed / 2.0
+			state.linear_velocity = vertical_velocity + (-global_transform.basis.z) * clamp(forward_input, -1.0, 1.0) * (move_speed / jump_drag)
 	
 # Setter & Getter
 func get_is_grounded() -> bool:
