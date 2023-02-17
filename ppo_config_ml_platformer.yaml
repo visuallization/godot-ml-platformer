@@ -32,9 +32,9 @@ config:
     gamma: 0.99
 
     num_workers: 8
-    num_envs_per_worker: 16
+    num_envs_per_worker: 1
     batch_mode: truncate_episodes
-    rollout_fragment_length: auto #128
+    rollout_fragment_length: 128
     num_gpus: 1
     no_done_at_end: true
     soft_horizon: true
